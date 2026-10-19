@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Веб-приложение Менеджер задач — планирование дел и учет времени">
+    <title>Менеджер задач — Лабораторная работа 4-5</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <style>
+        body { font-family: sans-serif; line-height: 1.5; margin: 20px auto; max-width: 900px; padding: 0 15px; color: #222; }
+        header, nav, section, footer { margin-bottom: 25px; }
+        nav a { margin-right: 15px; }
+        form fieldset { margin-bottom: 15px; padding: 15px; border-radius: 6px; border: 1px solid #ccc; }
+        .form-row { margin-bottom: 12px; }
+        label { display: block; font-weight: bold; margin-bottom: 4px; }
+        input[type="text"], input[type="number"], input[type="date"], select, textarea { width: 100%; max-width: 400px; padding: 6px; box-sizing: border-box; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tfoot { font-weight: bold; background-color: #fafafa; }
+        figure { margin: 15px 0; }
+        footer { border-top: 1px solid #ddd; padding-top: 15px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка страницы -->
+    <header>
+        <h1>TaskFlow — Персональный менеджер задач</h1>
+        <p>Удобный инструмент для планирования дел, контроля дедлайнов и учета продуктивности.</p>
+    </header>
+
+    <!-- Навигация -->
+    <nav>
+        <a href="#stats">Статистика</a>
+        <a href="#add">Добавить задачу</a>
+        <a href="#data">Список задач</a>
+        <a href="#help">Справка</a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">Репозиторий на GitHub</a>
+    </nav>
+
+    <main>
+        <!-- Секция статистики и индикатора -->
+        <section id="stats">
+            <h2>Текущий прогресс</h2>
+            <figure>
+                <img src="images/app-preview.png" alt="Интерфейс менеджера задач" width="400">
+                <figcaption>Скриншот рабочего пространства приложения TaskFlow</figcaption>
+            </figure>
+            <div>
+                <label for="task-progress">Выполнение плана на день:</label>
+                <progress id="task-progress" max="10" value="6">6 из 10</progress>
+                <span>(60%)</span>
+            </div>
+            <div style="margin-top: 8px;">
+                <label for="work-load">Уровень загруженности:</label>
+                <meter id="work-load" min="0" max="100" low="30" high="75" optimum="50" value="65">65%</meter>
+                <span>Умеренная нагрузка</span>
+            </div>
+        </section>
+
+        <!-- Секция формы добавления задачи -->
+        <section id="add">
+            <h2>Добавить новую задачу</h2>
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>Параметры задачи</legend>
+
+                    <div class="form-row">
+                        <label for="task-title">Название задачи *</label>
+                        <input type="text" id="task-title" name="title" placeholder="Например: Сдать отчет" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="task-category">Категория *</label>
+                        <select id="task-category" name="category" required>
+                            <option value="" disabled selected>Выберите категорию</option>
+                            <option value="study">Учеба</option>
+                            <option value="work">Работа</option>
+                            <option value="personal">Личное</option>
+                            <option value="health">Здоровье / Спорт</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="task-hours">Планируемое время (в часах) *</label>
+                        <input type="number" id="task-hours" name="hours" min="1" max="24" placeholder="1" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="task-date">Срок выполнения (дедлайн) *</label>
+                        <input type="date" id="task-date" name="deadline" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="task-desc">Подробное описание</label>
+                        <textarea id="task-desc" name="description" rows="4" placeholder="Опишите шаги для выполнения..."></textarea>
+                    </div>
+
+                    <div>
+                        <button type="submit">Добавить задачу</button>
+                        <button type="reset">Очистить форму</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+        <!-- Секция таблицы данных -->
+        <section id="data">
+            <h2>Список текущих задач</h2>
+            <table>
+                <caption>Актуальные задачи на текущую неделю</caption>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Название задачи</th>
+                        <th>Категория</th>
+                        <th>Дедлайн</th>
+                        <th>Время (ч)</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Подготовить отчет по МДК 0502</td>
+                        <td>Учеба</td>
+                        <td>2026-10-20</td>
+                        <td>3</td>
+                        <td>В процессе</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Настроить окружение в VS Code</td>
+                        <td>Работа</td>
+                        <td>2026-10-21</td>
+                        <td>2</td>
+                        <td>Выполнено</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Тренировка в зале</td>
+                        <td>Здоровье / Спорт</td>
+                        <td>2026-10-22</td>
+                        <td>1</td>
+                        <td>Запланировано</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Всего запланировано времени:</td>
+                        <td colspan="2">6 часов</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <!-- Секция справки (FAQ) -->
+        <section id="help">
+            <h2>Часто задаваемые вопросы (Справка)</h2>
+            <details>
+                <summary>Как отметить задачу выполненной?</summary>
+                <p>На текущем этапе верстки интерфейс статичен. В следующей лабораторной работе с подключением JavaScript появится возможность кликать по задаче для смены статуса.</p>
+            </details>
+            <details style="margin-top: 8px;">
+                <summary>Куда сохраняются введённые данные?</summary>
+                <p>Пока данные не отправляются на сервер. Позже мы подключим LocalStorage для хранения данных прямо в браузере.</p>
+            </details>
+        </section>
+    </main>
+
+    <!-- Подвал страницы -->
+    <footer>
+        <p>copy; 2026 TaskFlow App. Автор:Алангова Карина</p>
+        <p>Контакты для связи: <a href="mailto:alangova09@bk.ru">alangova09@bk.ru</a></p>
+    </footer>
+</body>
+</html>
